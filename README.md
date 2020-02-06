@@ -4,7 +4,6 @@ Swift 5.1 version of code from https://github.com/ZewoGraveyard/TCPIP
 [![Swift][swift-badge]][swift-url]
 [![Platform][platform-badge]][platform-url]
 [![License][mit-badge]][mit-url]
-[![Slack][slack-badge]][slack-url]
 
 **TCPIP** is a TCP/IP library for **Swift 5.1**.
 
@@ -17,7 +16,9 @@ Swift 5.1 version of code from https://github.com/ZewoGraveyard/TCPIP
 - [x] TCP Client Socket
 
 ## Usage
-
+```swift
+import TCPIP
+```
 `IP`
 ----
 
@@ -47,11 +48,12 @@ do {
 ```swift
 // server
 do {
-    let ip = try IP(port: 5555)
+    let ip = try IP(port: 6379) // Connecting to local IP.
     let serverSocket = try TCPServerSocket(ip: ip)
     let clientSocket = try serverSocket.accept()
     
-    let yo = try clientSocket.receiveString(untilDelimiter: "\n")
+    let clientMessage = try clientSocket?.receiveString(untilDelimiter: "\n")
+    print("Client Message - \(clientMessage ?? "")")
 } catch {
     // something bad happened :(
 }
